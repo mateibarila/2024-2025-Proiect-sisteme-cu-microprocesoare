@@ -2,6 +2,7 @@ import network
 import socket
 import time
 from machine import Pin
+import smtplib
 onboard_led = Pin("LED", Pin.OUT)
 buzzer = Pin(14, Pin.OUT)  
 led_rosu = Pin(13, Pin.OUT)
@@ -74,14 +75,13 @@ print(ap.ifconfig())
 html = """<!DOCTYPE html>
 <html>
     <head> <title>Pico W</title> </head>
-    <body> <h1>Pico W</h1>
-        <p>%s</p>
+    <body style="background-color:lightgray;"> <h1 style="text-align:center;">Pico W</h1>
         <form method="POST" action="/mod_automat">
-            <label for="rosu">Prag led rosu:</label>
-            <input type="text" id="rosu" name="rosu" value="%s"><br>
-            <label for="galben">Prag led galben:</label>
-            <input type="text" id="galben" name="galben" value="%s"><br>
-            <input type="submit" value="Submit">
+            <label for="rosu" style="color:red;">Prag led rosu:</label>
+            <input type="text" id="rosu" name="rosu" value="%s" style="background-color:lightsalmon; padding: 0.5em; border-radius: 10px; box-shadow: 0 10px 10px rgba(0,0,0,0.1);" ><br>
+            <label for="galben" style="color:yellow">Prag led galben:</label>
+            <input type="text" id="galben" name="galben" value="%s" style="background-color:lightyellow; padding: 0.5em; border-radius: 10px; box-shadow: 0 10px 10px rgba(0,0,0,0.1);"><br>
+            <input type="submit" value="Submit" style="padding: 0.5em; border-radius: 10px;">
         </form>
     </body>
 </html>
@@ -144,7 +144,7 @@ while True:
                 mod_automat(prag_cm1, prag_cm2)
             except ValueError:
                 print("Valoare/valori invalide")
-        response = html % (stateis, rosu_value, galben_value)
+        response = html % ( rosu_value, galben_value)
         cl.send('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n'+response)
         cl.close()
     except OSError as e:
