@@ -2,7 +2,6 @@ import network
 import socket
 import time
 from machine import Pin
-import smtplib
 onboard_led = Pin("LED", Pin.OUT)
 buzzer = Pin(14, Pin.OUT)  
 led_rosu = Pin(13, Pin.OUT)
